@@ -1,0 +1,18 @@
+.single-blog-container {
+  display: flex;
+  align-items: start;
+}
+
+.single-blog-details {
+  flex-basis: 70%;
+}
+.single-blog-img {
+  width: 100%;
+  height: auto;
+}
+
+.single-blog-categories {
+  flex-basis: 30%;
+  position: sticky;
+  top: 0;
+}
