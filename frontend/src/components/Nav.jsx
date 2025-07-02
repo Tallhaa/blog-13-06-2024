@@ -11,9 +11,6 @@ const Nav = () => {
         </Link>
         <ul className="nav-links">
           <li>
-            <Link to="/">All Blogs</Link>
-          </li>
-          <li>
             <Link to="/add-blog">Add Blog</Link>
           </li>
         </ul>

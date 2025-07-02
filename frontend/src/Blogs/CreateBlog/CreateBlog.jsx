@@ -66,7 +66,7 @@ const CreateBlog = () => {
               <option value="technology">Technology</option>
               <option value="programming">Programming</option>
               <option value="news">News</option>
-              <option value="business">Business</option>
+              <option value="buisiness">Business</option>
             </select>
           </div>
 
