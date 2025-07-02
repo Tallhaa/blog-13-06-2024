@@ -1,12 +1,13 @@
 const express = require('express')
 const dotenv = require('dotenv');
 const app = express()
-dotenv.config({ path: "./db/.env" })
+dotenv.config()
 const cors = require("cors")
 require("./db/dbconnection")
 const Article = require("./models/Articles")
 const multer = require("multer")
 const path = require("path")
+const fs = require("fs");
 
 app.use(express.json())
 app.use(express.static('public'))
@@ -28,7 +29,7 @@ const upload = multer({ storage: storage })
 app.post("/add-blog", upload.single("image"), async (req, resp) => {
 
     try {
-        const { title, description, tags, category } = req.body;
+        const { title, description, category } = req.body;
         console.log(req.body);
         console.log(req.file);
         const img = req.file.filename
@@ -105,12 +106,21 @@ app.put("/update-blog/:id", upload.none(), async (req, resp) => {
 
 app.delete("/del/:id", async (req, resp) => {
     try {
-        let deleteBlog = await Article.deleteOne({ _id: req.params.id });
-        if (deleteBlog) {
-            resp.send(deleteBlog);
-        } else {
-            resp.send({ "message": "blog not deleted" })
+        let blog = await Article.findById({ _id: req.params.id });
+        if (blog?.image) {
+            const imagePath = path.join(__dirname, "public", "images", blog.image);
+            fs.unlink(imagePath, (err) => {
+                if (err) {
+                    console.error("Image deletion error:", err.message);
+                } else {
+                    console.log("Image deleted:", imagePath);
+                }
+            });
         }
+        const deleteBlog = await Article.deleteOne({ _id: req.params.id });
+
+        resp.json({ message: "Blog and image deleted", deleteBlog });
+
 
     } catch (err) {
         console.error("Error in MongoDB query:", err);

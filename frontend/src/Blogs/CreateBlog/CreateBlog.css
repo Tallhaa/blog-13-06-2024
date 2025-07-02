@@ -1,5 +1,39 @@
+.createBlogContiner {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
 .createBlogContinerinner {
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.createBlogContinerinner input,
+.createBlogContinerinner select,
+.createBlogContinerinner textarea {
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.createBlogContiner img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
   margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.createBlogContiner button {
+  padding: 10px;
+  background-color: #59bacc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }

@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const dotenv = require("dotenv");
-dotenv.config({ path: './db/.env' })
 
 const main = async () => {
     try {

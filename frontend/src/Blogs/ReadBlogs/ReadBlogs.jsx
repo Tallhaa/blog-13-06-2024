@@ -1,58 +1,64 @@
-import { useEffect, useState } from 'react';
-import BlogCard from "./BlogCard/BlogCard"
-import "./ReadBlogs.css"
+import { useEffect, useState } from "react";
+import BlogCard from "./BlogCard/BlogCard";
+import "./ReadBlogs.css";
+import Categories from "../../components/Categories/Categories";
 
 const ReadBlogs = () => {
-  const [blogs,setBlogs] = useState([])
-  const [originalBlogs, setOriginalBlogs] = useState([]);  // const [category, setCategory] = useState("all")
-  const AllBlogsList = async() =>{
-    try{
+  const [blogs, setBlogs] = useState([]);
+  const [originalBlogs, setOriginalBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const AllBlogsList = async () => {
+    try {
       let blogList = await fetch(`http://localhost:5000/`);
-        blogList = await blogList.json()
-        setBlogs(blogList)
-        setOriginalBlogs(blogList)
-        console.log('all blogs fetched',blogList);
-        console.log(blogList.category);
-      }catch(err){
-          console.log("failed to fetch all blogs",err);
-      }      
-  }
+      blogList = await blogList.json();
+      setBlogs(blogList);
+      setOriginalBlogs(blogList);
+      setLoading(false);
+      console.log("all blogs fetched", blogList);
+      console.log(blogList.category);
+    } catch (err) {
+      console.log("failed to fetch all blogs", err);
+      setLoading(false);
+    }
+  };
 
   const filterCategory = (category) => {
-   
     if (category === "all") {
       setBlogs(originalBlogs);
     } else {
-      const filterCategoryData = originalBlogs.filter((val) => val.category === category);
-      setBlogs(filterCategoryData);
+      const filtered = originalBlogs.filter(
+        (blog) => blog.category.toLowerCase() === category
+      );
+      setBlogs(filtered);
     }
-  }
+  };
 
-  
-  useEffect(()=>{
-    AllBlogsList()
-  },[])
+  useEffect(() => {
+    AllBlogsList();
+  }, []);
   return (
-    <div className='blog-list'>
+    <div className="blog-containerwrapper">
       <div className="blog-container">
-      {
-        blogs?.map((blog)=>
-        <div key={blog._id}>
-        <div  >
-          <BlogCard blog={blog}/>
-        </div>    
-        </div>
-        )
-        
-      }
-
-      </div>  
-     
-      
-
-
+        {loading ? (
+          <p style={{ padding: "20px", fontStyle: "italic" }}>
+            Loading blogs...
+          </p>
+        ) : blogs.length === 0 ? (
+          <p style={{ padding: "20px", fontStyle: "italic" }}>
+            No blogs found in this category.
+          </p>
+        ) : (
+          blogs.map((blog) => (
+            <div key={blog._id}>
+              <BlogCard blog={blog} />
+            </div>
+          ))
+        )}
+      </div>
+      <Categories onCategorySelect={filterCategory} />
     </div>
-  )
-}
+  );
+};
 
 export default ReadBlogs;

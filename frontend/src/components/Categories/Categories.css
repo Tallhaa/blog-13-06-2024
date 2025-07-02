@@ -1,0 +1,17 @@
+.category-container {
+  flex-basis: 30%;
+  border: 0.0625rem solid #ccc;
+}
+.category-container ul {
+  list-style-position: inside;
+  padding-left: 15px;
+  margin: 0;
+}
+
+.category-container ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.category-container ul li:hover {
+  opacity: 0.7;
+}
