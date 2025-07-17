@@ -1,5 +1,6 @@
 import React from "react";
 import "./BlogCard.css";
+import BASE_URL from "../../../api/baseUrl";
 import { Link } from "react-router-dom";
 
 const BlogCard = (props) => {
@@ -9,7 +10,7 @@ const BlogCard = (props) => {
       <Link to={`/blog/${blog._id}`}>
         <img
           className="card-img"
-          src={blog.image ? `http://localhost:5000/images/${blog.image}` : ""}
+          src={blog.image ? `${BASE_URL}/images/${blog.image}` : ""}
           alt=""
         />
       </Link>

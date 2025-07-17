@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BASE_URL from "../../api/baseUrl";
 import BlogCard from "./BlogCard/BlogCard";
 import "./ReadBlogs.css";
 import Categories from "../../components/Categories/Categories";
@@ -10,7 +11,7 @@ const ReadBlogs = () => {
 
   const AllBlogsList = async () => {
     try {
-      let blogList = await fetch(`http://localhost:5000/`);
+      let blogList = await fetch(`${BASE_URL}/`);
       blogList = await blogList.json();
       setBlogs(blogList);
       setOriginalBlogs(blogList);

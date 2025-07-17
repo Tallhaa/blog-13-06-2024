@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./SingleBlog.css";
+import BASE_URL from "../../api/baseUrl";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Categories from "../../components/Categories/Categories";
 
@@ -11,7 +12,7 @@ const SingleBlog = () => {
 
   const singleBlogFunction = async () => {
     try {
-      let singleBlog = await fetch(`http://localhost:5000/blog/${id}`);
+      let singleBlog = await fetch(`${BASE_URL}/blog/${id}`);
       singleBlog = await singleBlog.json();
       console.log(singleBlog);
       setBlog(singleBlog);
@@ -25,7 +26,7 @@ const SingleBlog = () => {
   const handleDeleteBlog = async (id) => {
     try {
       console.log(id);
-      let deleteSingleBlog = await fetch(`http://localhost:5000/del/${id}`, {
+      let deleteSingleBlog = await fetch(`${BASE_URL}/del/${id}`, {
         method: "Delete",
       });
       deleteSingleBlog = await deleteSingleBlog.json();
@@ -47,7 +48,7 @@ const SingleBlog = () => {
         <div style={{ maxWidth: "800px" }}>
           <img
             className="single-blog-img"
-            src={blog.image ? `http://localhost:5000/images/${blog.image}` : ""}
+            src={blog.image ? `${BASE_URL}/images/${blog.image}` : ""}
             alt=""
           />
         </div>

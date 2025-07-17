@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./UpdateBlog.css";
+import BASE_URL from "../../../api/baseUrl";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateBlog = () => {
@@ -11,7 +12,7 @@ const UpdateBlog = () => {
   const [description, setDescription] = useState("");
   const singleBlogFunction = async () => {
     try {
-      let singleBlog = await fetch(`http://localhost:5000/blog/${id}`);
+      let singleBlog = await fetch(`${BASE_URL}/blog/${id}`);
       singleBlog = await singleBlog.json();
       console.log(singleBlog);
       setImage(singleBlog.image);
@@ -30,7 +31,7 @@ const UpdateBlog = () => {
     e.preventDefault();
 
     try {
-      let updateblog = await fetch(`http://localhost:5000/update-blog/${id}`, {
+      let updateblog = await fetch(`/update-blog/${id}`, {
         method: "Put",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +60,7 @@ const UpdateBlog = () => {
             <img
               className=""
               style={{ width: "100%", height: "auto" }}
-              src={image ? `http://localhost:5000/images/${image}` : ""}
+              src={image ? `${BASE_URL}/images/${image}` : ""}
               alt=""
             />
           </div>

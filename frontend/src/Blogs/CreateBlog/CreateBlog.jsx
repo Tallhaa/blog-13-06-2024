@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./CreateBlog.css";
+import BASE_URL from "../../api/baseUrl";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const CreateBlog = () => {
@@ -22,7 +23,7 @@ const CreateBlog = () => {
       formData.append("category", category);
 
       try {
-        let createBlog = await fetch("http://localhost:5000/add-blog", {
+        let createBlog = await fetch(`${BASE_URL}/add-blog`, {
           method: "post",
           body: formData,
         });

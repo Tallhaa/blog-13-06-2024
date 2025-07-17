@@ -50,6 +50,10 @@ app.post("/add-blog", upload.single("image"), async (req, resp) => {
 
 
 // get all blog 
+app.get("/test", (req, res) => {
+    res.send("✅ Backend is working");
+});
+
 
 app.get("/", async (req, resp) => {
     try {
@@ -129,6 +133,8 @@ app.delete("/del/:id", async (req, resp) => {
 
 })
 
-app.listen(process.env.PORT, () => {
-    console.log("App is running");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`App is running on Port ${PORT}`);
 })
